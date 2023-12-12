@@ -1,7 +1,6 @@
 import json
 from random import randint
 
-
 numbers = [
     ["ゼロ", "ゼロ"],
     ["一", "いち"],
@@ -229,19 +228,22 @@ def pract_words():
 
 
 def usr_input():
-    print("Do you want to practice numbers or words?")
+    print("Do you want to practice numbers or words? (q to Quit)")
     corr_input = False
     while not corr_input:
         input_str = input()
-        # use match case with python 3.10
-        if input_str == "numbers":
-            corr_input = True
-            pract_num()
-        elif input_str == "words":
-            corr_input = True
-            pract_words()
-        else:
-            print("Please type only 'numbers' or 'words'")
+        match input_str.lower():
+            case "numbers":
+                corr_input = True
+                pract_num()
+            case "words":
+                corr_input = True
+                pract_words()
+            case "q":
+                print("Have a nice day :)")
+                return
+            case other:
+                print("Please type only 'numbers' or 'words'")
 
 
 if __name__ == "__main__":
