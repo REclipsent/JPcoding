@@ -1,6 +1,9 @@
 import json
 from random import randint
+from icecream import ic
+from rich import print
 
+# List of all numbers with Kanji and Kana readings
 numbers = [
     ["ゼロ", "ゼロ"],
     ["一", "いち"],
@@ -18,6 +21,7 @@ numbers = [
 
 
 def conv_num(kana_sys, n):
+    # Gets all the digits into a list
     num_digits = [int(x) for x in str(n)]
     jp_num = ""
     if n <= 10:
@@ -57,7 +61,7 @@ def conv_num(kana_sys, n):
     return jp_num
 
 
-def ask_num(kana_sys, max_number):
+def ask_num(kana_sys: int, max_number: int):
     numbers_asked = []
     while True:
         if len(numbers_asked) == max_number:
@@ -85,7 +89,7 @@ def ask_num(kana_sys, max_number):
                 correct_guess = True
                 numbers_asked.append(n)
             else:
-                print("Unfornately wrong, try again :)")
+                print("Unfortunately wrong, try again :)")
                 print(result_num)
 
 
@@ -228,21 +232,21 @@ def pract_words():
 
 
 def usr_input():
-    print("Do you want to practice numbers or words? (q to Quit)")
-    corr_input = False
-    while not corr_input:
+    question = "Do you want to practice numbers or words? (q to Quit)"
+    print(question)
+    while True:
         input_str = input()
         match input_str.lower():
-            case "numbers":
-                corr_input = True
+            case w if w in ["numbers", "num"]:
                 pract_num()
+                print(question)
             case "words":
-                corr_input = True
                 pract_words()
+                print(question)
             case "q":
                 print("Have a nice day :)")
                 return
-            case other:
+            case _:
                 print("Please type only 'numbers' or 'words'")
 
 
@@ -251,4 +255,3 @@ if __name__ == "__main__":
         usr_input()
     except KeyboardInterrupt:
         print("Have a nice day :)")
-        pass
